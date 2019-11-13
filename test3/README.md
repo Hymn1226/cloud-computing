@@ -127,13 +127,13 @@
 	mysql -u root -p
 
 #### 为WordPress创建一个新的数据库：
-	CREATE DATABASE wordpress;
+	CREATE DATABASE wordpress1;
 
 #### 为WordPress创建一个独立的MySQL用户：
-	CREATE USER wordpressuser@localhost IDENTIFIED BY 'password';
+	CREATE USER wordpressuser1@localhost IDENTIFIED BY 'password';
 
 #### 使用你自定义的用户名和密码。授权给wordpressuser用户访问数据库的权限：
-	GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost IDENTIFIED BY 'pa
+	GRANT ALL PRIVILEGES ON wordpress1.* TO wordpressuser1@localhost IDENTIFIED BY 'password'
 
 #### 刷新MySQL的权限：
 	FLUSH PRIVILEGES;
