@@ -11,7 +11,7 @@
 ### 使用yum工具安装：
      yum check-update
 
-![Pandao editor.md](1.png)
+![Pandao editor.md](pic/1.png)
 
 
 ## 2.下载最新的Docker并安装：
@@ -27,75 +27,75 @@
       yum-config-manager \
       --add-repo \
       https://download.docker.com/linux/centos/docker-ce.repo
-![Pandao editor.md](2-1.png)
-![Pandao editor.md](2-2.png)
+![Pandao editor.md](pic/2-1.png)
+![Pandao editor.md](pic/2-2.png)
 ### 安装最新版本的 Docker Engine-Community 和 containerd
      yum install docker-ce docker-ce-cli containerd.io  
 
-![Pandao editor.md](3.png)
+![Pandao editor.md](pic/3.png)
 
 ### 安装完成之后启动Docker守护进程，即Docker服务：
      systemctl start docker
-![Pandao editor.md](4.png)
+![Pandao editor.md](pic/4.png)
 
 ### 验证Docker是否成功启动：
       systemctl status docker
-![Pandao editor.md](5.png)
+![Pandao editor.md](pic/5.png)
 
 
 ### 最后，确保Docker当服务器启动时自启动：
      systemctl enable docker
     
-![Pandao editor.md](6.png)
+![Pandao editor.md](pic/6.png)
 ### 此外，还可以查看一下Docker的版本信息：
      docker version
     
-![Pandao editor.md](7.png)
+![Pandao editor.md](pic/7.png)
 
 # 二：完成Docker安装之后加载CentOS镜像
 ## 加载Docker镜像
 
 ### 使用search命令查询Docker Hub中的可用镜像
      docker search centos
-![Pandao editor.md](8.png)
+![Pandao editor.md](pic/8.png)
 
 ### 接下来拉取centos:7镜像：
      docker pull centos:7
-![Pandao editor.md](9.png)
+![Pandao editor.md](pic/9.png)
 
 ### 查看一下当前系统中存在的镜像：
      docker images
-![Pandao editor.md](11.png)
+![Pandao editor.md](pic/11.png)
 
 # 三：在Docker的CentOS容器实例中安装WordPress
 ## 1.运行Docker容器
 ### 以上述的CentOS镜像为例运行其容器，并使用端口映射：
      docker run -d -it --privileged --name test -p 8888:80 -d centos:7 /usr/sbin/init
 	 docker exec -it test /bin/bash
-![Pandao editor.md](10.png)
+![Pandao editor.md](pic/10.png)
 
 ## 2.搭建WordPress
 ### 1.安装Apache Web服务器
 #### 使用yum工具安装：
      yum install httpd
-![Pandao editor.md](13.png)
+![Pandao editor.md](pic/13.png)
 #### 安装完成之后，启动Apache Web服务器：
      systemctl start httpd.service
 
 #### 在你本地主机的浏览器上输入：
-     http://106.54.102.87
-![Pandao editor.md](14.1.png)
+     http://106.54.102.87:8888
+![Pandao editor.md](pic/14.1.png)
 
 ### 2.安装MySQL
 #### 安装MariaDB：
      yum install mariadb-server mariadb
-![Pandao editor.md](15.png)
+![Pandao editor.md](pic/15.png)
 #### 安装好之后，启动mariadb：
      systemctl start mariadb
 
 #### 启动交互脚本：
      mysql_secure_installation
-![Pandao editor.md](16.png)
+![Pandao editor.md](pic/16.png)
 #### 设置开机启动MariaDB：
      systemctl enable mariadb.service
 
@@ -107,7 +107,7 @@
       php -v
       systemctl restart httpd.service
 
-![Pandao editor.md](17.png)
+![Pandao editor.md](pic/17.png)
 ### 4.测试PHP
 #### 创建info.php并将其置于Web服务的根目录（/var/www/html/）：
 	sudo service httpd restart
@@ -116,12 +116,12 @@
 	<?php phpinfo(); ?>
 
 #### 在你的本地主机的浏览器中输入:
-	http://your_cvm_ip/info.php
-![Pandao editor.md](19.png)
+	http:106.54.102.87:8888.info.php
+![Pandao editor.md](pic/19.png)
 
 
 ### 5.安装WordPress以及完成相关配置
-####( 1)为WordPress创建一个MySQL数据库
+#### ( 1)为WordPress创建一个MySQL数据库
 
 #### 首先以root用户登录MySQL数据库：
 	mysql -u root -p
@@ -140,7 +140,7 @@
 
 #### 退出MySQL的命令行模式：
 	exit
-![Pandao editor.md](20.png)
+![Pandao editor.md](pic/20.png)
 
 #### (2)安装WordPress
 #### 下载WordPress至当前用户的主目录：
@@ -162,48 +162,48 @@
 #### (3)配置WordPress
 #### 通过访问公网ip:8888配置wordpress
 	http://106.54.102.87:8888/
-![Pandao editor.md](23.png)
+![Pandao editor.md](pic/23.png)
 #### 填写先前创建的数据库名，用户名及密码：
-![Pandao editor.md](24.png)
+![Pandao editor.md](pic/24.png)
 
 #### 设置网站的标题，用户名和密码以及电子邮件等，点击Install WordPress，弹出确认页面：
-![Pandao editor.md](25.png)
+![Pandao editor.md](pic/25.png)
 
 #### (4)登录wordpress，编辑个人博客
-![Pandao editor.md](26.png)
-![Pandao editor.md](27.png)
+![Pandao editor.md](pic/26.png)
+![Pandao editor.md](pic/27.png)
 
 # 四：创建新的镜像
 ### 首先使用如下命令查看本地中的容器：
      docker ps -a
-![Pandao editor.md](28.png)
+![Pandao editor.md](pic/28.png)
 
 ### 使用commit命令来提交更改到新的镜像中，即创建新的镜像
      docker commit -m “install apache server” -a “ll” 00123e32a83c centos:apache_web
 
 ### 再次使用镜像查看命令：
      docker images
-![Pandao editor.md](29.png)
+![Pandao editor.md](pic/29.png)
 
 ### 为新建的镜像打上标签（Tag）
      docker tag 3e46de335eeb docker-hub-username/centos:apache_web
 
 ### 完成之后，同样查看已存在的镜像：
      docker images
-![Pandao editor.md](30.png)
+![Pandao editor.md](pic/30.png)
 
 # 五：将带有WordPress的CentOS镜像推送到容器仓库
 
 ### 首先要到Docker Hub上进行注册，然后使用shell登录：
      docker login -u docker-hub-username
-![Pandao editor.md](31.png)
+![Pandao editor.md](pic/31.png)
 
 ### 使用如下命令推送新创建的镜像：
      docker push docker-hub-username/docker-image-name
-![Pandao editor.md](32.png)
+![Pandao editor.md](pic/32.png)
 
 ## 登陆Docker Hub，查看Repository
-![Pandao editor.md](33.png)
+![Pandao editor.md](pic/33.png)
 
 
 
