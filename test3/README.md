@@ -224,19 +224,19 @@
 
 ### dockerfile、 setup.sh 、setup.sql 、wordpress压缩包
 
-<img src="C:\Users\Hymn\Desktop\test3\pic\34.png" style="zoom:200%;" />
+<img src="pic/34.png" style="zoom:150%;" />
 
 
 
 ## 2.编写dockerfile
 
-![](C:\Users\Hymn\Desktop\test3\pic\35.png)
+![](pic/35.png)
 
 
 
 ## 3.编写数据库文件setup.sql
 
-<img src="C:\Users\Hymn\Desktop\test3\pic\36.png" style="zoom:150%;" />
+<img src="pic/36.png" style="zoom:150%;" />
 
 
 
@@ -244,7 +244,7 @@
 
 
 
-<img src="C:\Users\Hymn\Desktop\test3\pic\37.png" style="zoom:150%;" />
+<img src="pic/37.png" style="zoom:150%;" />
 
 
 
@@ -254,7 +254,7 @@
 docker build -t tt11 .
 ```
 
-<img src="C:\Users\Hymn\Desktop\test3\pic\40.png" style="zoom: 200%;" />
+<img src="pic/40.png" style="zoom: 200%;" />
 
 
 
@@ -264,17 +264,17 @@ docker build -t tt11 .
 docker run -d -it --privileged --name ts99 -p 8080:80 -d tt11 /usr/sbin/init 
 ```
 
-![](C:\Users\Hymn\Desktop\test3\pic\41.png)
+![](pic/41.png)
 
 ## 7.查看docker进程
 
-![](C:\Users\Hymn\Desktop\test3\pic\38.png)
+![](pic/38.png)
 
 
 
 ## 8.浏览器进入http://106.54.102.87:8080 ，查看是否配置成功
 
-![](C:\Users\Hymn\Desktop\test3\pic\39.png)
+![](pic/39.png)
 
 
 
