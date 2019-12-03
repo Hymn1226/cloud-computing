@@ -3,7 +3,7 @@
 ------------
 
 
-# 一：安装Docker
+# 实验一：安装Docker
 
 
 
@@ -29,6 +29,7 @@
       https://download.docker.com/linux/centos/docker-ce.repo
 ![Pandao editor.md](pic/2-1.png)
 ![Pandao editor.md](pic/2-2.png)
+
 ### 安装最新版本的 Docker Engine-Community 和 containerd
      yum install docker-ce docker-ce-cli containerd.io  
 
@@ -36,7 +37,7 @@
 
 ### 安装完成之后启动Docker守护进程，即Docker服务：
      systemctl start docker
-![Pandao editor.md](pic/4.png)
+<img src="pic/4.png" alt="Pandao editor.md" style="zoom: 200%;" />
 
 ### 验证Docker是否成功启动：
       systemctl status docker
@@ -45,14 +46,14 @@
 
 ### 最后，确保Docker当服务器启动时自启动：
      systemctl enable docker
-    
+
 ![Pandao editor.md](pic/6.png)
 ### 此外，还可以查看一下Docker的版本信息：
      docker version
-    
-![Pandao editor.md](pic/7.png)
 
-# 二：完成Docker安装之后加载CentOS镜像
+<img src="pic/7.png" alt="Pandao editor.md" style="zoom:150%;" />
+
+# 实验二：完成Docker安装之后加载CentOS镜像
 ## 加载Docker镜像
 
 ### 使用search命令查询Docker Hub中的可用镜像
@@ -61,17 +62,17 @@
 
 ### 接下来拉取centos:7镜像：
      docker pull centos:7
-![Pandao editor.md](pic/9.png)
+<img src="pic/9.png" alt="Pandao editor.md" style="zoom:150%;" />
 
 ### 查看一下当前系统中存在的镜像：
      docker images
-![Pandao editor.md](pic/11.png)
+<img src="pic/11.png" alt="Pandao editor.md" style="zoom:150%;" />
 
-# 三：在Docker的CentOS容器实例中安装WordPress
+# 实验二：在Docker的CentOS容器实例中安装WordPress
 ## 1.运行Docker容器
 ### 以上述的CentOS镜像为例运行其容器，并使用端口映射：
      docker run -d -it --privileged --name test -p 8888:80 -d centos:7 /usr/sbin/init
-	 docker exec -it test /bin/bash
+     docker exec -it test /bin/bash
 ![Pandao editor.md](pic/10.png)
 
 ## 2.搭建WordPress
@@ -95,7 +96,8 @@
 
 #### 启动交互脚本：
      mysql_secure_installation
-![Pandao editor.md](pic/16.png)
+<img src="pic/16.png" alt="Pandao editor.md" style="zoom:150%;" />
+
 #### 设置开机启动MariaDB：
      systemctl enable mariadb.service
 
@@ -107,7 +109,8 @@
       php -v
       systemctl restart httpd.service
 
-![Pandao editor.md](pic/17.png)
+<img src="pic/17.png" alt="Pandao editor.md" style="zoom: 200%;" />
+
 ### 4.测试PHP
 #### 创建info.php并将其置于Web服务的根目录（/var/www/html/）：
 	sudo service httpd restart
@@ -127,13 +130,13 @@
 	mysql -u root -p
 
 #### 为WordPress创建一个新的数据库：
-	CREATE DATABASE wordpress1;
+	CREATE DATABASE wordpress;
 
 #### 为WordPress创建一个独立的MySQL用户：
-	CREATE USER wordpressuser1@localhost IDENTIFIED BY 'password';
+	CREATE USER wordpressuser@localhost IDENTIFIED BY 'password';
 
 #### 使用你自定义的用户名和密码。授权给wordpressuser用户访问数据库的权限：
-	GRANT ALL PRIVILEGES ON wordpress1.* TO wordpressuser1@localhost IDENTIFIED BY 'password'
+	GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost IDENTIFIED BY 'pa
 
 #### 刷新MySQL的权限：
 	FLUSH PRIVILEGES;
@@ -171,54 +174,107 @@
 
 #### (4)登录wordpress，编辑个人博客
 ![Pandao editor.md](pic/26.png)
+
 ![Pandao editor.md](pic/27.png)
 
-# 四：创建新的镜像
-### 首先使用如下命令查看本地中的容器：
+
+
+# 实验二：创建新的镜像
+### 1.首先使用如下命令查看本地中的容器：
      docker ps -a
 ![Pandao editor.md](pic/28.png)
 
 ### 使用commit命令来提交更改到新的镜像中，即创建新的镜像
      docker commit -m “install apache server” -a “ll” 00123e32a83c centos:apache_web
 
-### 再次使用镜像查看命令：
+### 2.再次使用镜像查看命令：
      docker images
-![Pandao editor.md](pic/29.png)
+<img src="pic/29.png" alt="Pandao editor.md" style="zoom:150%;" />
 
-### 为新建的镜像打上标签（Tag）
+### 3.为新建的镜像打上标签（Tag）
      docker tag 3e46de335eeb docker-hub-username/centos:apache_web
 
-### 完成之后，同样查看已存在的镜像：
+### 4.完成之后，同样查看已存在的镜像：
      docker images
-![Pandao editor.md](pic/30.png)
+<img src="pic/30.png" alt="Pandao editor.md" style="zoom:150%;" />
 
-# 五：将带有WordPress的CentOS镜像推送到容器仓库
 
-### 首先要到Docker Hub上进行注册，然后使用shell登录：
+
+# 实验三：将带有WordPress的CentOS镜像推送到容器仓库
+
+### 1.首先要到Docker Hub上进行注册，然后使用shell登录：
      docker login -u docker-hub-username
-![Pandao editor.md](pic/31.png)
+<img src="pic/31.png" alt="Pandao editor.md" style="zoom:150%;" />
 
-### 使用如下命令推送新创建的镜像：
+### 2.使用如下命令推送新创建的镜像：
      docker push docker-hub-username/docker-image-name
-![Pandao editor.md](pic/32.png)
+<img src="pic/32.png" alt="Pandao editor.md" style="zoom:150%;" />
 
 ## 登陆Docker Hub，查看Repository
 ![Pandao editor.md](pic/33.png)
 
 
 
+# **实验三：使用dockerfile搭建wordpress**
+
+------------
+##  1.创建一个文件夹存放dockerfile及所需文件
+
+###  文件夹中需要存放如下文件：
+
+### dockerfile、 setup.sh 、setup.sql 、wordpress压缩包
+
+<img src="C:\Users\Hymn\Desktop\test3\pic\34.png" style="zoom:200%;" />
 
 
 
+## 2.编写dockerfile
+
+![](C:\Users\Hymn\Desktop\test3\pic\35.png)
 
 
 
+## 3.编写数据库文件setup.sql
+
+<img src="C:\Users\Hymn\Desktop\test3\pic\36.png" style="zoom:150%;" />
 
 
 
+## 4.编写脚本文件setup.sh
 
 
 
+<img src="C:\Users\Hymn\Desktop\test3\pic\37.png" style="zoom:150%;" />
+
+
+
+## 5.建立镜像
+
+```
+docker build -t tt11 .
+```
+
+<img src="C:\Users\Hymn\Desktop\test3\pic\40.png" style="zoom: 200%;" />
+
+
+
+## 6.创建容器,启用端口8080，并以特权模式运行，并启动httpd
+
+```
+docker run -d -it --privileged --name ts99 -p 8080:80 -d tt11 /usr/sbin/init 
+```
+
+![](C:\Users\Hymn\Desktop\test3\pic\41.png)
+
+## 7.查看docker进程
+
+![](C:\Users\Hymn\Desktop\test3\pic\38.png)
+
+
+
+## 8.浏览器进入http://106.54.102.87:8080 ，查看是否配置成功
+
+![](C:\Users\Hymn\Desktop\test3\pic\39.png)
 
 
 
