@@ -278,3 +278,39 @@ docker run -d -it --privileged --name ts99 -p 8080:80 -d tt11 /usr/sbin/init
 
 
 
+## 9.填写数据库信息
+
+![](pic/42.png)
+
+## 10.进入容器，修改wp-config.php
+
+#### 通过命令行连接WordPress和MySQL定位到wordpress所在文件夹：
+
+```
+cd /var/www/html
+```
+
+#### WordPress的配置依赖于wp-config.php文件,通过拷贝wp-config-sample.php文件来生成：
+
+```
+cp wp-config-sample.php wp-config.php
+```
+
+### 编辑该文件
+
+```
+vi wp-config.php
+```
+
+![](pic/44.png)
+
+## 11.返回网站，继续配置
+
+![](pic/45.png)
+
+
+
+## 12.配置成功，进入控制台
+
+![](pic/46.png)
+
